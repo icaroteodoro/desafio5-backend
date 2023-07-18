@@ -1,5 +1,6 @@
 package br.com.banco.entity;
 
+
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -9,8 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "transferencia")
@@ -20,7 +20,7 @@ public class Transferencia{
 	@Column(name = "id")
 	private int id;
 	@Column(name = "data_transferencia",nullable = false)
-	@JsonFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd-HH-mm-ss")
 	private LocalDateTime dataTransferencia;
 	@Column(nullable = false, length=20, name = "valor")
 	private Double valor;
@@ -30,6 +30,8 @@ public class Transferencia{
 	private String nomeOperadorTransacao;
 	@Column(nullable = false, unique = true, name = "conta_id") 	
 	private int contaId;
+	
+	
 	
 	
 	public int getId() {
@@ -68,5 +70,7 @@ public class Transferencia{
 	public void setContaId(int contaId) {
 		this.contaId = contaId;
 	}
+	
+	
 	
 }

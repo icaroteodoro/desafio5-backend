@@ -10,10 +10,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 
 import br.com.banco.entity.Transferencia;
 import br.com.banco.repository.TransferenciaRepository;
@@ -24,9 +28,22 @@ public class TransferenciaController {
 	@Autowired
 	private TransferenciaRepository transferenciaRepository;
 	
+	
 	@GetMapping
 	public List<Transferencia> listTransferencia(){
 		return transferenciaRepository.findAll();
+	}
+	@GetMapping
+	@RequestMapping("/ultima")
+	public Transferencia ultimaTransferencia(){
+		List<Transferencia> listTranfer = transferenciaRepository.findAll();
+		Transferencia ultimaTransferencia = listTranfer.get(listTranfer.size() - 1);
+		return ultimaTransferencia;
+	}
+	@PostMapping
+	@RequestMapping("/salvar")
+	public Transferencia save(@RequestBody Transferencia t) {
+		return transferenciaRepository.save(t);
 	}
 	
 //	RETORNA AS TRANSFERENCIA PELO ID DA CONTA

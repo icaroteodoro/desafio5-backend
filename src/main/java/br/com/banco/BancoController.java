@@ -18,31 +18,34 @@ import br.com.banco.repository.ContaBancariaRepository;
 
 
 @RestController
+@RequestMapping("/conta-bancaria")
 public class BancoController {
 	@Autowired
 	private ContaBancariaRepository contaBancariaRepository;
 	
 	@GetMapping
-	@RequestMapping("/conta-bancaria")
 	public List<ContaBancaria> listConta(){
 		return contaBancariaRepository.findAll();
 	}
 	@GetMapping
-	@RequestMapping("/conta-bancaria/{id}")
+	@RequestMapping("/{id}")
 	public Optional<ContaBancaria> getContaBancariaById(@PathVariable int id){
 		return contaBancariaRepository.findById(id);
 	}
 	
 	@PostMapping
-	public void saveConta(@RequestBody ContaBancaria contaBancaria) {
-		contaBancariaRepository.save(contaBancaria);
+	@RequestMapping("/salvar")
+	public ContaBancaria saveConta(@RequestBody ContaBancaria contaBancaria) {
+		return contaBancariaRepository.save(contaBancaria);
 	}
 	
 	@PutMapping
-	public void updateConta(@RequestBody  ContaBancaria contaBancaria) {
-		contaBancariaRepository.save(contaBancaria);
+	@RequestMapping("/atualizar")
+	public ContaBancaria updateConta(@RequestBody  ContaBancaria contaBancaria) {
+		return contaBancariaRepository.save(contaBancaria);
 	}
 	@DeleteMapping
+	@RequestMapping("/deletar")
 	public void deleteConta(@RequestBody ContaBancaria contaBancaria) {
 		contaBancariaRepository.delete(contaBancaria);
 	}
